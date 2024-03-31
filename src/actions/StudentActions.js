@@ -1,7 +1,7 @@
 import { notification } from "antd";
 import axios from "axios";
 
-const API = axios.create({ baseURL: "https://localhost:7182" });
+const API = axios.create({ baseURL: "https://localhost:5001" });
 
 const handleTokenExpiration = () => {
   window.location.replace("/");
