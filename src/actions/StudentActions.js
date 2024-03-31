@@ -3,6 +3,35 @@ import axios from "axios";
 
 const API = axios.create({ baseURL: "https://localhost:7182" });
 
+const handleTokenExpiration = () => {
+  window.location.replace("/");
+};
+
+API.interceptors.request.use(
+  (config) => {
+    const token = JSON.parse(sessionStorage.getItem("token"));
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
+  }
+);
+
+API.interceptors.response.use(
+  (response) => {
+    return response;
+  },
+  (error) => {
+    if (error.response && error.response.status === 401) {
+      handleTokenExpiration();
+    }
+    return Promise.reject(error);
+  }
+);
+
 export const getAllStudents = async () => {
   try {
     const { data } = await API.get("/api/Student/getAll");
@@ -31,7 +60,7 @@ export const addStudent = async (studentData) => {
 };
 
 export const editStudent = async (studentData, id) => {
-  console.log("🚀 ~ editStudent ~ studentData:", studentData)
+  console.log("🚀 ~ editStudent ~ studentData:", studentData);
   try {
     const { data } = await API.put(`/api/Student/${id}`, studentData);
     if (data) {
