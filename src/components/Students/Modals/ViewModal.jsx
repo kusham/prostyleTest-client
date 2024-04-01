@@ -20,7 +20,7 @@ const ViewModal = ({ isModalOpen, handleOk, studentData }) => {
         {Object.values(studentData).map(
           (value, index) =>
             index !== 0 && (
-              <InfoItem>
+              <InfoItem key={index}>
                 <Label>{Object.keys(studentData)[index].replace(/^\w/, (c) => c.toUpperCase())}</Label>
                 <Value>{value}</Value>
               </InfoItem>
