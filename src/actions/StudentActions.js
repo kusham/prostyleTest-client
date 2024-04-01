@@ -60,15 +60,12 @@ export const addStudent = async (studentData) => {
 };
 
 export const editStudent = async (studentData, id) => {
-  console.log("🚀 ~ editStudent ~ studentData:", studentData);
   try {
-    const { data } = await API.put(`/api/Student/${id}`, studentData);
-    if (data) {
+    await API.put(`/api/Student/${id}`, studentData);
       notification.success({
         message: "Success",
         description: "Student updated successfully",
       });
-    }
   } catch (error) {
     console.log(error);
     notification.error({

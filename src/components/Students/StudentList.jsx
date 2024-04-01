@@ -97,9 +97,11 @@ const StudentList = () => {
     }
   }, [isModalOpen, modalType]);
 
-  useEffect(() => {
-
-  }, [students]);
+  const handleOk = () => {
+    setTimeout(() => {
+      setIsModalOpen(false);
+    }, 500);
+  };
 
   return (
     <StudentContainer>
@@ -114,7 +116,7 @@ const StudentList = () => {
       </TopRowTable>
       <Table dataSource={students} columns={columns} scroll={{x: true}} />
       <StudentModal
-        handleOk={() => setIsModalOpen(false)}
+        handleOk={handleOk}
         isModalOpen={isModalOpen}
         type={modalType}
         studentData={selectedStudent}
