@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Formik, Field } from "formik";
 import { Input, Select, Button, Row, Col, Form } from "antd";
 import { validationSchema } from "../../../utils/StudentFormValidation";
@@ -25,9 +25,10 @@ const StudentForm = ({ closeModel, studentData , type}) => {
     resetForm();
     closeModel();
   };
-  return (
+    return (
     <Formik
       initialValues={studentData ? studentData : initialValues}
+      enableReinitialize={true}
       validationSchema={validationSchema}
       onSubmit={handleSubmit}
     >
@@ -128,8 +129,12 @@ const StudentForm = ({ closeModel, studentData , type}) => {
                   <Select.Option value="">Select Department</Select.Option>
                   <Select.Option value="IT">IT</Select.Option>
                   <Select.Option value="Engineering">Engineering</Select.Option>
-                  <Select.Option value="Computer Science">Computer Science</Select.Option>
-                  <Select.Option value="Architecture">Architecture</Select.Option>
+                  <Select.Option value="Computer Science">
+                    Computer Science
+                  </Select.Option>
+                  <Select.Option value="Architecture">
+                    Architecture
+                  </Select.Option>
                 </Select>
               </Form.Item>
             </Col>
@@ -174,7 +179,7 @@ const StudentForm = ({ closeModel, studentData , type}) => {
               Cancel
             </Button>
 
-            <Button type="primary" htmlType="submit" >
+            <Button type="primary" htmlType="submit">
               {type === MODAL_TYPES.ADD ? "Add" : "Edit"}
             </Button>
           </ButtonRow>
